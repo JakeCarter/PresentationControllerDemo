@@ -8,18 +8,6 @@
 
 import UIKit
 
-class CustomPresentationController: UIPresentationController {
-    override func presentationTransitionWillBegin() {
-        super.presentationTransitionWillBegin()
-    }
-}
-
-class CustomTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return CustomPresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
 class ViewController: UIViewController {
     var currentTransitioningDelegate: UIViewControllerTransitioningDelegate?
 
