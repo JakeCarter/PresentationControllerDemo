@@ -8,13 +8,37 @@
 
 import UIKit
 
+class FooPresentationController: UIPresentationController {
+    override func presentationTransitionWillBegin() {
+        super.presentationTransitionWillBegin()
+    }
+}
+
+class Foo: NSObject, UIViewControllerTransitioningDelegate {
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return FooPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
 class ViewController: UIViewController {
+    var currentTransitioningDelegate: UIViewControllerTransitioningDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    @IBAction func presentButtonTapped(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let vc = storyboard.instantiateViewController(withIdentifier: "OtherViewController")
+        let nav = UINavigationController(rootViewController: vc)
+        
+        nav.modalPresentationStyle = .custom
+        
+        currentTransitioningDelegate = Foo()
+        nav.transitioningDelegate = currentTransitioningDelegate
+        
+        present(nav, animated: true, completion: nil)
+    }
 }
 
