@@ -8,15 +8,15 @@
 
 import UIKit
 
-class FooPresentationController: UIPresentationController {
+class CustomPresentationController: UIPresentationController {
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
     }
 }
 
-class Foo: NSObject, UIViewControllerTransitioningDelegate {
+class CustomTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return FooPresentationController(presentedViewController: presented, presenting: presenting)
+        return CustomPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
 
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         
         nav.modalPresentationStyle = .custom
         
-        currentTransitioningDelegate = Foo()
+        currentTransitioningDelegate = CustomTransitioningDelegate()
         nav.transitioningDelegate = currentTransitioningDelegate
         
         present(nav, animated: true, completion: nil)
