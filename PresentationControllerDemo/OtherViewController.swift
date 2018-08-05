@@ -2,9 +2,6 @@
 //  OtherViewController.swift
 //  PresentationControllerDemo
 //
-//  Created by Jake Carter on 8/3/18.
-//  Copyright © 2018 Jake Carter. All rights reserved.
-//
 
 import UIKit
 
