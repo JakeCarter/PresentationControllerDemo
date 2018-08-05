@@ -17,6 +17,13 @@ class OtherViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButtonItem
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let customPresentationController = navigationController?.customPresentationController {
+            navigationItem.leftBarButtonItem = customPresentationController.toggleHeightButtonItem
+        }
+    }
     
     @objc func doneButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)

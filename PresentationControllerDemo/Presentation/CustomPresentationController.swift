@@ -9,6 +9,37 @@
 import UIKit
 
 class CustomPresentationController: UIPresentationController {
+    private enum DisplayStyle {
+        case halfHeight
+        case fullHeight
+    }
+    
+    var toggleHeightButtonItem: UIBarButtonItem {
+        let result = UIBarButtonItem(title: "Toggle Height", style: .plain, target: self, action: #selector(toggleHeightButtonTapped(_:)))
+        return result
+    }
+    
+    private var displayStyle: DisplayStyle = .halfHeight {
+        didSet {
+            assert(Thread.isMainThread)
+            
+            UIView.animate(withDuration: 0.25) {
+                self.presentedView?.frame = self.frameOfPresentedViewInContainerView
+                
+                self.presentedView?.setNeedsLayout()
+                self.presentedView?.layoutIfNeeded()
+            }
+            
+        }
+    }
+    @objc func toggleHeightButtonTapped(_ sender: UIBarButtonItem) {
+        displayStyle = (displayStyle == .halfHeight) ? .fullHeight : .halfHeight
+    }
+    
+    override var shouldPresentInFullscreen: Bool {
+        return false
+    }
+    
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
     }
@@ -16,8 +47,14 @@ class CustomPresentationController: UIPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         
-        var result = CGRect(x: containerView.frame.origin.x, y: containerView.frame.origin.y + containerView.frame.size.height / 2, width: containerView.frame.size.width, height: containerView.frame.size.height / 2)
-        result = result.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+        var result: CGRect
+        switch displayStyle {
+        case .fullHeight:
+            result = containerView.frame
+        case .halfHeight:
+            result = CGRect(x: containerView.frame.origin.x, y: containerView.frame.origin.y + containerView.frame.size.height / 2, width: containerView.frame.size.width, height: containerView.frame.size.height / 2)
+            result = result.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+        }
         
         return result
     }
