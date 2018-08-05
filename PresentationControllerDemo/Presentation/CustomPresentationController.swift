@@ -49,6 +49,12 @@ class CustomPresentationController: UIPresentationController {
         
         return result
     }
+    
+    override func containerViewWillLayoutSubviews() {
+        super.containerViewWillLayoutSubviews()
+        
+        presentedView?.frame = frameOfPresentedViewInContainerView
+    }
 }
 
 extension UIViewController {
