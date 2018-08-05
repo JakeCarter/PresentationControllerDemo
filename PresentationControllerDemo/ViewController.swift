@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var currentTransitioningDelegate: UIViewControllerTransitioningDelegate?
+    var customTransitioningDelegate = CustomTransitioningDelegate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +22,7 @@ class ViewController: UIViewController {
         let nav = UINavigationController(rootViewController: vc)
         
         nav.modalPresentationStyle = .custom
-        
-        currentTransitioningDelegate = CustomTransitioningDelegate()
-        nav.transitioningDelegate = currentTransitioningDelegate
+        nav.transitioningDelegate = customTransitioningDelegate
         
         present(nav, animated: true, completion: nil)
     }

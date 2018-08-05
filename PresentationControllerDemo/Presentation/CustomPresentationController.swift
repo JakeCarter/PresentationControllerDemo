@@ -13,6 +13,7 @@ class CustomPresentationController: UIPresentationController {
         case halfHeight
         case fullHeight
     }
+    
     var displayStyle: DisplayStyle = .halfHeight {
         didSet {
             assert(Thread.isMainThread)
@@ -23,7 +24,6 @@ class CustomPresentationController: UIPresentationController {
                 self.presentedView?.setNeedsLayout()
                 self.presentedView?.layoutIfNeeded()
             }
-            
         }
     }
     
