@@ -9,17 +9,11 @@
 import UIKit
 
 class CustomPresentationController: UIPresentationController {
-    private enum DisplayStyle {
+    enum DisplayStyle {
         case halfHeight
         case fullHeight
     }
-    
-    var toggleHeightButtonItem: UIBarButtonItem {
-        let result = UIBarButtonItem(title: "Toggle Height", style: .plain, target: self, action: #selector(toggleHeightButtonTapped(_:)))
-        return result
-    }
-    
-    private var displayStyle: DisplayStyle = .halfHeight {
+    var displayStyle: DisplayStyle = .halfHeight {
         didSet {
             assert(Thread.isMainThread)
             
@@ -31,9 +25,6 @@ class CustomPresentationController: UIPresentationController {
             }
             
         }
-    }
-    @objc func toggleHeightButtonTapped(_ sender: UIBarButtonItem) {
-        displayStyle = (displayStyle == .halfHeight) ? .fullHeight : .halfHeight
     }
     
     override var shouldPresentInFullscreen: Bool {

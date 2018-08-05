@@ -15,17 +15,18 @@ class OtherViewController: UIViewController {
 
         let doneButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped(_:)))
         navigationItem.rightBarButtonItem = doneButtonItem
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        if let customPresentationController = navigationController?.customPresentationController {
-            navigationItem.leftBarButtonItem = customPresentationController.toggleHeightButtonItem
-        }
+        let togglePresentation = UIBarButtonItem(title: "Toggle", style: .plain, target: self, action: #selector(toggleButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = togglePresentation
     }
     
     @objc func doneButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func toggleButtonTapped(_ sender: UIBarButtonItem) {
+        guard let customPresentationController = navigationController?.customPresentationController else { return }
+        
+        customPresentationController.displayStyle = (customPresentationController.displayStyle == .halfHeight) ? .fullHeight : .halfHeight
     }
 }
