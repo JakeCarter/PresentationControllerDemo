@@ -44,8 +44,8 @@
 		2320492121160AEC00B935AB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				2320492221160B1000B935AB /* CustomPresentationController.swift */,
 				2320492421160B3600B935AB /* CustomTransitioningDelegate.swift */,
+				2320492221160B1000B935AB /* CustomPresentationController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";

@@ -24,14 +24,6 @@ class CustomPresentationController: UIPresentationController {
         }
     }
     
-    override var shouldPresentInFullscreen: Bool {
-        return false
-    }
-    
-    override func presentationTransitionWillBegin() {
-        super.presentationTransitionWillBegin()
-    }
-    
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         
@@ -40,8 +32,8 @@ class CustomPresentationController: UIPresentationController {
         case .fullHeight:
             result = containerView.frame
         case .halfHeight:
-            result = CGRect(x: containerView.frame.origin.x, y: containerView.frame.origin.y + containerView.frame.size.height / 2, width: containerView.frame.size.width, height: containerView.frame.size.height / 2)
-            result = result.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+            result = CGRect(x: 0, y: containerView.frame.origin.y + containerView.frame.size.height / 2, width: containerView.frame.size.width, height: containerView.frame.size.height / 2)
+            result = result.inset(by: UIEdgeInsets(top: 0, left: containerView.safeAreaInsets.left + 20, bottom: 0, right: containerView.safeAreaInsets.right + 20))
         }
         
         return result
